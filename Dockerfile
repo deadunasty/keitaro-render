@@ -11,8 +11,9 @@ RUN dnf -y install epel-release \
         ca-certificates \
         jq \
         gettext \
+        procps \
     && dnf clean all
-
+    
 # Создаём файл /etc/centos-release для распознавания ОС Keitaro
 RUN echo "CentOS Stream release 9" > /etc/centos-release
 
