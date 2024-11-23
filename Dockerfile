@@ -1,5 +1,5 @@
-# Используем официальный образ CentOS Stream 9 в качестве базового
-FROM centos:stream9
+# Используем официальный образ Rocky Linux 9 в качестве базового
+FROM rockylinux:9
 
 # Устанавливаем EPEL репозиторий и необходимые зависимости
 RUN dnf -y install epel-release \
