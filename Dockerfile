@@ -8,13 +8,17 @@ RUN sed -i 's|mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-Base.repo \
 # Устанавливаем EPEL репозиторий для доступа к дополнительным пакетам
 RUN yum install -y epel-release
 
-# Устанавливаем необходимые зависимости, включая jq из EPEL
+# Настраиваем DNS
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
+
+# Устанавливаем необходимые зависимости, включая jq и gettext
 RUN yum update -y && yum install -y \
     curl \
     bash \
     gnupg2 \
     ca-certificates \
     jq \
+    gettext \
     && yum clean all
 
 # Создаём рабочую директорию для Keitaro
