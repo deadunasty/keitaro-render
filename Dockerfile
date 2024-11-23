@@ -9,10 +9,13 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Создаем рабочую директорию
+# Создаём рабочую директорию
 WORKDIR /opt/keitaro
 
-# Загружаем и устанавливаем Keitaro
+# Создаём директорию для логов Keitaro
+RUN mkdir -p /var/log/keitaro
+
+# Устанавливаем Keitaro
 RUN curl keitaro.io/kctl.sh | bash -s -- install
 
 # Открываем необходимые порты (например, 80 и 443)
