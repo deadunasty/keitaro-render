@@ -1,19 +1,19 @@
-# Используем официальный образ Ubuntu в качестве базового
-FROM ubuntu:20.04
+# Используем официальный образ CentOS в качестве базового
+FROM centos:7
 
 # Устанавливаем необходимые зависимости
-RUN apt-get update && apt-get install -y \
+RUN yum update -y && yum install -y \
     curl \
     bash \
     gnupg2 \
     ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+    && yum clean all
 
 # Создаём рабочую директорию
 WORKDIR /opt/keitaro
 
 # Создаём необходимые директории для Keitaro
-RUN mkdir -p /opt/keitaro/log
+RUN mkdir -p /opt/keitaro/log /var/log/keitaro
 
 # Загружаем и устанавливаем Keitaro
 RUN curl keitaro.io/kctl.sh | bash -s -- install
