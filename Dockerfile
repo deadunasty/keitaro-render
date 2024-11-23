@@ -4,7 +4,7 @@ FROM rockylinux:9
 # Устанавливаем EPEL репозиторий и необходимые зависимости
 RUN dnf -y install epel-release \
     && dnf -y update \
-    && dnf install -y \
+    && dnf install -y --allowerasing \
         curl \
         bash \
         gnupg2 \
