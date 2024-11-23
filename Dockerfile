@@ -13,6 +13,9 @@ RUN dnf -y install epel-release \
         gettext \
     && dnf clean all
 
+# Создаём файл /etc/centos-release для распознавания ОС Keitaro
+RUN echo "CentOS Stream release 9" > /etc/centos-release
+
 # Создаём рабочую директорию для Keitaro
 WORKDIR /opt/keitaro
 
