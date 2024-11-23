@@ -3,13 +3,12 @@ FROM centos:7
 
 # Обновляем конфигурацию репозиториев, чтобы использовать Vault
 RUN sed -i 's|mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-Base.repo \
-    && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Base.repo
+    && sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/|baseurl=http://vault.centos.org/centos/$releasever/os/$basearch/|g' /etc/yum.repos.d/CentOS-Base.repo \
+    && sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/|baseurl=http://vault.centos.org/centos/$releasever/extras/$basearch/|g' /etc/yum.repos.d/CentOS-Base.repo \
+    && sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/|baseurl=http://vault.centos.org/centos/$releasever/updates/$basearch/|g' /etc/yum.repos.d/CentOS-Base.repo
 
 # Устанавливаем EPEL репозиторий для доступа к дополнительным пакетам
 RUN yum install -y epel-release
-
-# Настраиваем DNS
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
 # Устанавливаем необходимые зависимости, включая jq и gettext
 RUN yum update -y && yum install -y \
