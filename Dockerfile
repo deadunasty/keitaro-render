@@ -1,15 +1,22 @@
-# Используем официальный образ CentOS 9 Stream в качестве базового
-FROM centos:9-stream
+# Используем официальный образ CentOS Stream 9 в качестве базового
+FROM centos:stream9
 
-# Обновляем систему и устанавливаем необходимые зависимости
+# Обновляем конфигурацию репозиториев, чтобы использовать Vault (если необходимо)
+# Для CentOS Stream 9 это обычно не требуется, но оставим настройки репозиториев на всякий случай
+# RUN sed -i 's|mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-Base.repo \
+#     && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Base.repo
+
+# Устанавливаем EPEL репозиторий для доступа к дополнительным пакетам
+RUN dnf install -y epel-release
+
+# Устанавливаем необходимые зависимости, включая jq и gettext
 RUN dnf -y update && dnf install -y \
     curl \
     bash \
     gnupg2 \
     ca-certificates \
-    epel-release \
-    gettext \
     jq \
+    gettext \
     && dnf clean all
 
 # Создаём рабочую директорию для Keitaro
